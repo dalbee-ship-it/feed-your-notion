@@ -17,25 +17,44 @@ An OpenClaw skill that automatically saves links to your Notion database with AI
 
 ### 1. Set up Notion
 
-1. Create a [Notion integration](https://www.notion.so/my-integrations)
-2. Create a database with these properties:
-   - `title` (title)
-   - `url` (url)
-   - `source` (select): Web, Youtube, Instagram, X, threads, reddit
-   - `summary` (rich_text)
-   - `full_text` (rich_text)
-   - `memo` (rich_text)
-3. Share the database with your integration (⋯ → Add connections)
+#### Create an integration
+1. Go to [My Integrations](https://www.notion.so/my-integrations)
+2. Click "New integration" → name it whatever you want
+3. Copy the API key (starts with `ntn_`)
+
+#### Create the database (1-click with Notion AI)
+1. Open any Notion page
+2. Click the **Notion AI button** (bottom-right ✨ icon)
+3. Paste this prompt:
+
+```
+Create an inline database called "Knowledge Vault" with the following properties:
+- title (title): Article title
+- url (url): Original link
+- source (select, options: Web, Youtube, Instagram, X, threads, reddit): Where the link came from
+- summary (rich_text): AI-generated summary
+- full_text (rich_text): Full article text
+- memo (rich_text): User comments
+```
+
+4. Done! Now share the DB with your integration: click ⋯ → **Add connections** → select your integration
+
+#### Get your Database ID
+The DB ID is in the URL when you open the database:
+```
+https://www.notion.so/YOUR_WORKSPACE/[DATABASE_ID]?v=...
+                                      ^^^^^^^^^^^^
+```
 
 ### 2. Install
 
 ```bash
 # In your OpenClaw workspace
 cd skills
-git clone https://github.com/thedalbee/feed-your-notion.git
+git clone https://github.com/dalbee-ship-it/feed-your-notion.git
 
 # Install dependencies
-cd link-to-insight
+cd feed-your-notion
 npm install @notionhq/client
 
 # Set environment variables
@@ -79,7 +98,7 @@ Set up a cron job to get a daily summary of saved links:
 ## Project Structure
 
 ```
-link-to-insight/
+feed-your-notion/
 ├── SKILL.md          # OpenClaw skill definition
 ├── README.md         # This file
 ├── .env.example      # Environment variable template
